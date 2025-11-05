@@ -310,8 +310,8 @@ export const getNotificationCount = async (req: Request, res: Response) => {
     const { userId } = req.params;
 
     const [rows]: any = await sequelize.query(
-      "SELECT COUNT(*) AS count FROM interest_requests WHERE receiverId = ? AND status = 'pending'",
-      { replacements: [userId] }
+      'SELECT COUNT(*) AS count FROM interest_requests WHERE "receiverId" = ? AND status = ?',
+      { replacements: [userId, 'pending'] }
     );
 
     const count = rows[0]?.count || 0;
@@ -329,8 +329,8 @@ export const getSentInterestCount = async (req: Request, res: Response) => {
 
     // Only count PENDING sent requests
     const [rows]: any = await sequelize.query(
-      "SELECT COUNT(*) AS count FROM interest_requests WHERE senderId = ? AND status = 'pending'",
-      { replacements: [userId] }
+      'SELECT COUNT(*) AS count FROM interest_requests WHERE "senderId" = ? AND status = ?',
+      { replacements: [userId, 'pending'] }
     );
 
     const count = rows[0]?.count || 0;
